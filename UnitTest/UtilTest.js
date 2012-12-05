@@ -1,4 +1,4 @@
-w3d.require('w3d.util');
+Space.require('Space.Util');
 
 (function () {
   test('Test Utils', TestCase({
@@ -22,7 +22,7 @@ w3d.require('w3d.util');
     },
 
     testQueryEncode: function(req, res) {
-      equal(w3d.util.queryEncode(req), res, 'queryEncode problem set: ' + res);
+      equal(Space.Util.queryEncode(req), res, 'queryEncode problem set: ' + res);
     }
 
   }));

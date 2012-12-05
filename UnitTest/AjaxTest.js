@@ -1,20 +1,20 @@
-w3d.require('w3d.ajax');
+Space.require('Space.Ajax');
 
 (function () {
   test('Test Ajax', TestCase({
     setUp: function() {
-      w3d.ajax.setRequestFactory(null);
+      Space.Ajax.setRequestFactory(null);
     },
 
     afterTearDown: function() {
-      w3d.ajax.setRequestFactory(null);
+      Space.Ajax.setRequestFactory(null);
     },
 
     testGetRequestFactory: function() {
-      var creator = w3d.ajax.getRequestFactory();
+      var creator = Space.Ajax.getRequestFactory();
 
       ok(typeof creator === 'function',
-        'w3d.ajax.getRequestFactory have to return a function');
+        'Space.Ajax.getRequestFactory have to return a function');
 
       equal(
         creator().constructor,
@@ -26,11 +26,11 @@ w3d.require('w3d.ajax');
     testSetRequestFactory: function() {
       function RequestMock() {}
 
-      w3d.ajax.setRequestFactory(function() {
+      Space.Ajax.setRequestFactory(function() {
         return new RequestMock();
       });
 
-      equal(w3d.ajax.getRequestFactory()().constructor, RequestMock,
+      equal(Space.Ajax.getRequestFactory()().constructor, RequestMock,
         'setRequestFactory does not set appropriate handler.');
     },
   }));

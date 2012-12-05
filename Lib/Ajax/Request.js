@@ -1,8 +1,8 @@
-w3d.ns('w3d.ajax');
-w3d.require('w3d.ajax');
-w3d.require('w3d.util');
+Space.ns('Space.Ajax');
+Space.require('Space.Ajax');
+Space.require('Space.Util');
 
-w3d.ajax.Request = w3d.createClass({
+Space.Ajax.Request = Space.createClass({
   construct: function() {
     this.params = {
       url: '/',
@@ -19,15 +19,14 @@ w3d.ajax.Request = w3d.createClass({
     this.params.fullUrl = this.params.url;
 
     if (this.params.get) {
-      this.params.fullUrl += '?' + w3d.util.queryEncode(this.params.get);
+      this.params.fullUrl += '?' + Space.Util.queryEncode(this.params.get);
     }
 
     this.params.method = 'GET';
-
   },
 
   send: function() {
-    var handler = w3d.ajax.getRequestFactory()();
+    var handler = Space.Ajax.getRequestFactory()();
     
     handler.open(
       this.params.method,

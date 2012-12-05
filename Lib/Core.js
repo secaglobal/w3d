@@ -1,14 +1,14 @@
-var w3d = {};
+var Space = {};
 
-w3d.registerClass = function(classname, parent) {
-  if (w3d[classname]) {
-    throw new w3d.ClassExistsException('Class ' + classname + ' already registred');
+Space.registerClass = function(classname, parent) {
+  if (Space[classname]) {
+    throw new Space.ClassExistsException('Class ' + classname + ' already registred');
   }
   
-  w3d[classname] = w3d.createClass(parent);
+  Space[classname] = Space.createClass(parent);
 }
 
-w3d.createClass = function(params) {
+Space.createClass = function(params) {
   if (!params) {
     params = {};
   }
@@ -22,9 +22,9 @@ w3d.createClass = function(params) {
   var parent = params.extend || false;
 
   if (typeof parent == 'string') {
-    w3d._inherit(cl, w3d[parent]);
+    Space._inherit(cl, Space[parent]);
   } else if (typeof parent == 'function') {
-    w3d._inherit(cl, parent);
+    Space._inherit(cl, parent);
   }
 
   for (var el in params) {
@@ -34,17 +34,17 @@ w3d.createClass = function(params) {
   return cl;
 }
 
-w3d.unregisterClass = function() {
+Space.unregisterClass = function() {
   for (var i = 0, arg; arg = arguments[i]; ++i) {
-    delete w3d[arg];
+    delete Space[arg];
   }
 }
 
-w3d.create = function(classname, params) {
-  return new w3d[classname](params);
+Space.create = function(classname, params) {
+  return new Space[classname](params);
 }
 
-w3d._inherit = function(child, parent) {
+Space._inherit = function(child, parent) {
   var F = function() { };
   F.prototype = parent.prototype;
   child.prototype = new F();
@@ -53,8 +53,8 @@ w3d._inherit = function(child, parent) {
   child.self = child;
 }
 
-w3d.require = function(namespace) {
-  var sequance = [[/^w3d/, 'lib'], [/\./g, '/']];
+Space.require = function(namespace) {
+  var sequance = [[/^Space/, 'Lib'], [/\./g, '/']];
   var path = namespace;
   var loaded = 0;
 
@@ -70,7 +70,7 @@ w3d.require = function(namespace) {
   head.appendChild(script);
 }
 
-w3d.ns = function(namespace) {
+Space.ns = function(namespace) {
   var names = namespace.split('.');
 
   for (var i = 0, name, scope = window; name = names[i]; ++i) {
@@ -84,8 +84,8 @@ w3d.ns = function(namespace) {
 /**
  * Exceptions 
  */
-w3d.Exception = function(msg) {
+Space.Exception = function(msg) {
   this.message = msg;
 };
 
-w3d.ClassExistsException = w3d.createClass({extend: w3d.Exception});
+Space.ClassExistsException = Space.createClass({extend: Space.Exception});

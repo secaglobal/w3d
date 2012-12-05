@@ -1,6 +1,6 @@
-w3d.ns('w3d.util');
+Space.ns('Space.Util');
 
-w3d.util.queryEncode = function(params, prefix) {
+Space.Util.queryEncode = function(params, prefix) {
   var res = [];
   var keyPattern = typeof prefix === 'undefined' ? '<key>' : prefix + '[<key>]';
 
@@ -14,7 +14,7 @@ w3d.util.queryEncode = function(params, prefix) {
     }
     
     if (typeof params[el] ==  'object') {
-      res.push(w3d.util.queryEncode(params[el], key));
+      res.push(Space.Util.queryEncode(params[el], key));
     } else {
       res.push(key + '=' + encodeURIComponent(params[el]));
     }

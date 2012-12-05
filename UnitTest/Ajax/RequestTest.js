@@ -1,14 +1,14 @@
-w3d.require('w3d.ajax');
-w3d.require('w3d.ajax.request');
+Space.require('Space.Ajax');
+Space.require('Space.Ajax.Request');
 
 (function () {
   test('Test Ajax.Request', TestCase({
     setUp: function() {
-      w3d.ajax.setRequestFactory(null);
+      Space.Ajax.setRequestFactory(null);
     },
 
     afterTearDown: function() {
-      w3d.ajax.setRequestFactory(null);
+      Space.Ajax.setRequestFactory(null);
     },
 
     testSend: function() {
@@ -18,9 +18,9 @@ w3d.require('w3d.ajax.request');
         send: function() { sent = true; }
       };
 
-      w3d.ajax.setRequestFactory(function () {return mockedHandler;});
+      Space.Ajax.setRequestFactory(function () {return mockedHandler;});
 
-      var req = new w3d.ajax.Request({
+      var req = new Space.Ajax.Request({
         url: '/test/fake/req/simple.php',
         get: {test1: 1, test2: 2},
         isAsync: false,

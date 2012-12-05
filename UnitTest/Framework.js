@@ -41,7 +41,7 @@ function TestSuite(bundles) {
   function load(bundle) {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
-    script.setAttribute('src', 'lib/tests/' + bundle.replace(/\./g, '/') + '.js');
+    script.setAttribute('src', '/UnitTest/' + bundle.replace(/\./g, '/') + '.js');
     script.setAttribute('language', 'javascript');
     script.setAttribute('type', 'text/javascript');
     head.appendChild(script);
