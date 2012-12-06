@@ -2,5 +2,7 @@ TestSuite([
     'CoreTest',
     'AjaxTest',
     'Ajax.RequestTest',
-    'UtilTest'
+    'UtilTest',
+    'Resource.DefaultLoaderTest',
+    'Resource.LoaderTest'
 ]);

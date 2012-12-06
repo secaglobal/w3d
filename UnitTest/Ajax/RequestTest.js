@@ -23,7 +23,7 @@ Space.require('Space.Ajax.Request');
       var req = new Space.Ajax.Request({
         url: '/test/fake/req/simple.php',
         get: {test1: 1, test2: 2},
-        isAsync: false,
+        isAsync: false
       });
 
       req.send();

@@ -16,9 +16,8 @@ Space.require('Space.Ajax');
       ok(typeof creator === 'function',
         'Space.Ajax.getRequestFactory have to return a function');
 
-      equal(
-        creator().constructor,
-        (window.XMLHttpRequest ? XMLHttpRequest : ActiveXObject),
+      ok(
+        creator() instanceof (window.XMLHttpRequest ? window.XMLHttpRequest : ActiveXObject),
         'Default ajax handler have to be XMLHttpRequest or ActiveXObject'
       );
     },
@@ -32,6 +31,6 @@ Space.require('Space.Ajax');
 
       equal(Space.Ajax.getRequestFactory()().constructor, RequestMock,
         'setRequestFactory does not set appropriate handler.');
-    },
+    }
   }));
 })();

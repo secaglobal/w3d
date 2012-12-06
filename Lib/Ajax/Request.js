@@ -7,7 +7,7 @@ Space.Ajax.Request = Space.createClass({
     this.params = {
       url: '/',
       get: {},
-      isAsync: true,
+      isAsync: true
     }
 
     if (arguments.length > 0) {
