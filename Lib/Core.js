@@ -22,13 +22,21 @@ Space.createClass = function(params) {
   var parent = params.extend || false;
 
   if (typeof parent == 'string') {
-    Space._inherit(cl, Space[parent]);
-  } else if (typeof parent == 'function') {
-    Space._inherit(cl, parent);
+    parent = Space[parent];
   }
+
+  Space._inherit(cl, parent);
 
   for (var el in params) {
     cl.prototype[el] = params[el];
+  }
+
+  if (parent) {
+    for (var el in parent) {
+      if (typeof parent[el] == 'function' && el != 'self') { 
+        Space._bindStaticMethod(parent, cl, el);
+      }
+    }
   }
 
   return cl;
@@ -44,6 +52,12 @@ Space.create = function(classname, params) {
   return new Space[classname](params);
 }
 
+Space._bindStaticMethod = function(from, to, name) {
+  to[name] = function(){
+    return from[name].apply({self: this.self || to}, arguments)
+  };
+}
+
 Space._inherit = function(child, parent) {
   var F = function() { };
   F.prototype = parent.prototype;
@@ -51,6 +65,7 @@ Space._inherit = function(child, parent) {
   child.prototype.constructor = child;
   child.superclass = parent.prototype;
   child.self = child;
+  child.prototype.self = child;
 }
 
 Space.require = function(namespace) {

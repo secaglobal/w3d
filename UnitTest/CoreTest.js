@@ -50,6 +50,11 @@ Space.require('UnitTest.Fake.Autoloaded');
         } 
       });
 
+      B.staticMethodAdd = function(){
+        var self = this.self || B;
+        return self.addProp = self.addProp ? self.addProp + 1 : 1;
+      }
+
       var C = Space.createClass({
         extend: B,
         prop1: 'PropC'
@@ -74,6 +79,14 @@ Space.require('UnitTest.Fake.Autoloaded');
       equal(b.getProp2(), 'PropB2', 'B should return own property');
       equal(c.getProp2(),
         'PropB2', 'C should return property of A (if not found in local scope)');
+
+      //Checking static logic
+      equal(typeof C.staticMethodAdd, 'function', 'C should inherit static property');
+      equal(B.staticMethodAdd(), 1, 'B should work with own static property');
+      equal(C.staticMethodAdd(), 1, 'C should work with own static property');
+      equal(C.staticMethodAdd(), 2, 'C should work with own static property');
+      equal(C.staticMethodAdd(), 3, 'C should work with own static property');
+      equal(B.staticMethodAdd(), 2, 'B should work with own static property');
     },
 
     testRegisterClassAndCreate: function() {

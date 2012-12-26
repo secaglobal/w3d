@@ -10,7 +10,6 @@ Space.Resource.Loader = Space.createClass({
 
   load: function(path, opt_fn) {
     var loader = this._loader ? this._loader : this._defaultLoader;
-    console.log(loader);
     loader.load(path, opt_fn);
   },
 

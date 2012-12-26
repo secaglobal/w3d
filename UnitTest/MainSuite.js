@@ -4,5 +4,8 @@ TestSuite([
     'Ajax.RequestTest',
     'UtilTest',
     'Resource.DefaultLoaderTest',
-    'Resource.LoaderTest'
+    'Resource.LoaderTest',
+    'Template.DefaultReaderTest',
+    'ActiveRecordTest',
+    'DataProvider.LocalTest'
 ]);
