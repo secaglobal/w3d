@@ -8,11 +8,11 @@ Space.Util.queryEncode = function(params, prefix) {
     var key;
 
     if (params instanceof Array && typeof prefix !== 'undefined') {
-      key = keyPattern.replace('<key>', '');  
+      key = keyPattern.replace('<key>', '');
     } else {
       key = keyPattern.replace('<key>', encodeURIComponent(el));
     }
-    
+
     if (typeof params[el] ==  'object') {
       res.push(Space.Util.queryEncode(params[el], key));
     } else {
@@ -20,6 +20,21 @@ Space.Util.queryEncode = function(params, prefix) {
     }
 
   }
-    
+
   return res.join('&');
-}
+};
+
+/**
+ * Prepare callback function
+ * Create function that execute fn with appropriate scope
+ * @param  {Function} fn    handler
+ * @param  {[type]}   scope scope of handler. Default: {}
+ * @return {function}       Callback function
+ */
+Space.Util.callback = function(fn, scope, parameters) {
+  scope = scope || {};
+  parameters = parameters || [];
+  return function(){
+    return fn.apply(scope, parameters.concat.apply(parameters, arguments));
+  };
+};

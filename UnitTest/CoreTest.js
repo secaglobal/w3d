@@ -37,9 +37,9 @@ Space.require('UnitTest.Fake.Autoloaded');
           this.id = param;
           this.inited = true;
           this.prop2 = 'PropA2';
-        } 
+        }
       });
-      
+
       var B = Space.createClass({
         extend: A,
         prop1: 'PropB',
@@ -47,7 +47,7 @@ Space.require('UnitTest.Fake.Autoloaded');
         construct: function() {
           B.superclass.construct.apply(this, arguments);
           this.prop2 = 'PropB2';
-        } 
+        }
       });
 
       B.staticMethodAdd = function(){
@@ -58,7 +58,7 @@ Space.require('UnitTest.Fake.Autoloaded');
       var C = Space.createClass({
         extend: B,
         prop1: 'PropC'
-      });      
+      });
 
       var a = new A(11),
           b = new B(12),

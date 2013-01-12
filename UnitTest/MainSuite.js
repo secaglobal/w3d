@@ -7,5 +7,7 @@ TestSuite([
     'Resource.LoaderTest',
     'Template.DefaultReaderTest',
     'ActiveRecordTest',
-    'DataProvider.LocalTest'
+    'DataProvider.LocalTest',
+    'DataProvider.ProxyTest',
+    'DataProvider.RequestParserTest',
 ]);

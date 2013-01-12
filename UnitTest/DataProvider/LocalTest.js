@@ -17,8 +17,8 @@ Space.require('Space.DataProvider.Local');
       var max = this.provider.find(1),
           nina = this.provider.find(7);
 
-      equal('Max', max.name, 'ActiveRecord.find must return item by id');
-      equal('Nina', nina.name, 'ActiveRecord.find must return item by id');
+      equal('Max', max.name, 'DataProvider.Local.find must return item by id');
+      equal('Nina', nina.name, 'DataProvider.Local.find must return item by id');
     },
 
     // testFindWhere: function() {
@@ -27,7 +27,7 @@ Space.require('Space.DataProvider.Local');
 
     //   equal('Max', max.name, 'ActiveRecord.find must recognize object as where clouse');
     //   equal('Nina', nina.name, 'ActiveRecord.find must recognize object as where clouse');
-    // }
+    // },
 
     testFindByManyIds: function() {
       var users = this.provider.find(1, 7);
@@ -37,10 +37,9 @@ Space.require('Space.DataProvider.Local');
         this.provider.find(7)
       ];
 
-      console.log(users, expected);
-      ok(users instanceof Array, 'ActiveRecord.find: Must return array if requested many users');
-      equal(users.length, 2, 'ActiveRecord.find: Must return array with all appropriate items');
-      deepEqual(users, expected, 'ActiveRecord.find must return all items by id if defined many');
+      ok(users instanceof Array, 'DataProvider.Local.find: Must return array if requested many users');
+      equal(users.length, 2, 'DataProvider.Local.find: Must return array with all appropriate items');
+      deepEqual(users, expected, 'DataProvider.Local.find must return all items by id if defined many');
     }
   }));
 })();

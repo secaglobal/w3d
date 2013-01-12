@@ -12,18 +12,26 @@ Space.require('Space.Ajax.Request');
     },
 
     testSend: function() {
-      var args, sent;
+      var args, sent, calledback = false;
       var mockedHandler = {
         open: function() { args = arguments; },
-        send: function() { sent = true; }
+        send: function() {
+          sent = true;
+          this.readyState = 4;
+          this.status = 200;
+          this.onreadystatechange();
+        }
       };
 
       Space.Ajax.setRequestFactory(function () {return mockedHandler;});
 
       var req = new Space.Ajax.Request({
         url: '/test/fake/req/simple.php',
-        get: {test1: 1, test2: 2},
-        isAsync: false
+        params: {test1: 1, test2: 2},
+        isAsync: false,
+        success: function() {
+          calledback = true;
+        }
       });
 
       req.send();
@@ -34,6 +42,15 @@ Space.require('Space.Ajax.Request');
         'Request should pass correct params into XMLHttpRequest.open'
       );
       ok(sent, 'Request should be sent');
+      ok(calledback, ' Space.Ajax.send : does not execute callback function')
+    },
+
+    testSetParam: function() {
+      var req = new Space.Ajax.Request({params: {test1: 1, test2: 2}});
+      req.setParam('test', 'testValue');
+
+      deepEqual(req.getParams(), {test1: 1, test2: 2, test: 'testValue'},
+        'Request.setParam : Must add parameter to others');
     }
   }));
 })();
