@@ -12,7 +12,7 @@ Space.require('Space.DataProvider.Proxy');
       });
     },
 
-    testFind: function() {
+    testFindWhenPassedSingleId: function() {
       var request = this.request,
           loaded = false;
 
@@ -46,21 +46,75 @@ Space.require('Space.DataProvider.Proxy');
 
     },
 
-    testFindWhenPassedManyIds: function() {
-      var expected = {
-        action: 'list',
-        filter: {where: {id: [7, 12]}}
-      };
+    testFindWhenPassedManyId: function() {
+      var request = this.request,
+          loaded = false;
 
-      this.provider.find(7, 12);
+      stop();
 
-      deepEqual(this.request.getParams(), expected,
-        'ActiveRecord.find : incorrect param set for request with many ids');
+      this.provider.find(7, 14, function(result) {
+        var expectedParams = {
+          action: 'list',
+          filter: {where: {id: [7, 14]}}
+        };
+
+        var expectedResult = [{id: 7}, {id: 14}];
+
+        loaded = true;
+
+        start();
+
+        deepEqual(request.getParams(), expectedParams,
+          'ActiveRecord.find : incorrect param set for request with many ids');
+
+        deepEqual(result, expectedResult,
+          'ActiveRecord.find : incorrect result for request with many ids');
+      });
+
+      window.setTimeout(function(){
+        if (!loaded) {
+          start();
+          ok(false, 'ActiveRecord.find: does not execute callback');
+        }
+      }, 1000);
     },
 
+    testFindWhenPassedManyIdWithOptionsAndWhereClouse: function() {
+      var request = this.request,
+          loaded = false,
+          params = [7, 14, {state: ['>', 10], 'name': 'Bond'}, {orderby: 'name desc, state', limit: 10}];
 
-    testFindWhenPassedManyIds: function() {
-      Space.DataProvider.Proxy
+      stop();
+
+      this.provider.find.apply(this.provider, params.concat(function(result) {
+        var expectedParams = {
+          action: 'list',
+          filter: {
+            where: {id: [7, 14], state: ['>', 10], 'name': 'Bond'},
+            order: [['name', 1], ['state', 0]],
+            limit: 10
+          }
+        };
+
+        var expectedResult = [{id: 14}];
+
+        loaded = true;
+
+        start();
+
+        deepEqual(request.getParams(), expectedParams,
+          'ActiveRecord.find : incorrect param set for request with many ids');
+
+        deepEqual(result, expectedResult,
+          'ActiveRecord.find : incorrect result for request with many ids');
+      }));
+
+      window.setTimeout(function(){
+        if (!loaded) {
+          start();
+          ok(false, 'ActiveRecord.find: does not execute callback');
+        }
+      }, 1000);
     }
   }));
 })();

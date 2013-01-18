@@ -1,45 +1,14 @@
+/**
+ * @namespace
+ */
 var Space = {};
 
 Space.registerClass = function(classname, parent) {
   if (Space[classname]) {
     throw new Space.ClassExistsException('Class ' + classname + ' already registred');
   }
-  
-  Space[classname] = Space.createClass(parent);
-}
 
-Space.createClass = function(params) {
-  if (!params) {
-    params = {};
-  }
-
-  var cl = function () {
-    if (this.construct) {
-       this.construct.apply(this, arguments);
-    }
-  };
-
-  var parent = params.extend || false;
-
-  if (typeof parent == 'string') {
-    parent = Space[parent];
-  }
-
-  Space._inherit(cl, parent);
-
-  for (var el in params) {
-    cl.prototype[el] = params[el];
-  }
-
-  if (parent) {
-    for (var el in parent) {
-      if (typeof parent[el] == 'function' && el != 'self') { 
-        Space._bindStaticMethod(parent, cl, el);
-      }
-    }
-  }
-
-  return cl;
+  Space[classname] = Space.Class(parent);
 }
 
 Space.unregisterClass = function() {
@@ -87,20 +56,14 @@ Space.require = function(namespace) {
 
 Space.ns = function(namespace) {
   var names = namespace.split('.');
+      scope = window;
 
-  for (var i = 0, name, scope = window; name = names[i]; ++i) {
+  for (var i = 0, name; name = names[i]; ++i) {
     if (!scope[name]) {
       scope[name] = {};
     }
     scope = scope[name];
   }
+
+  return scope;
 }
-
-/**
- * Exceptions 
- */
-Space.Exception = function(msg) {
-  this.message = msg;
-};
-
-Space.ClassExistsException = Space.createClass({extend: Space.Exception});

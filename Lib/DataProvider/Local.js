@@ -1,8 +1,7 @@
-Space.ns('Space.DataProvider');
 /**
- * @class
+ * @class Space.DataProvider.Local
  */
-Space.DataProvider.Local = Space.createClass({
+Space.Class('Space.DataProvider.Local', {
   construct: function(conf) {
     this._records = {};
     this._recordsStack = [];
@@ -12,19 +11,19 @@ Space.DataProvider.Local = Space.createClass({
         this._records[record.id] = record;
         this._recordsStack.push(record);
       }
-    } 
+    }
   },
 
   find: function() {
     var stack = [];
     var filterParams = new Space.DataProvider.RequestParser(arguments).getParams();
-    var ids = filterParams.where && filterParams.where.id ? 
+    var ids = filterParams.where && filterParams.where.id ?
                 filterParams.where.id : false;
-              
+
     if (ids && !(ids instanceof Array)) {
       ids = [ids];
     }
-    
+
     if (ids && ids.length) {
       for (var i = 0, id; id = ids[i]; ++i) {
         stack.push(this._records[id]);

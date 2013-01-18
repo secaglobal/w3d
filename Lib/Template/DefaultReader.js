@@ -1,6 +1,6 @@
 Space.ns('Space.Template');
 
-Space.Template.DefaultReader = Space.createClass({
+Space.Template.DefaultReader = Space.Class({
   read: function(tpl) {
     var templateParts = [];
     var marker = 0;

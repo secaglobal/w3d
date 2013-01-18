@@ -1,9 +1,7 @@
-Space.require('Space.DataProvider.Local');
 
-Space.ActiveRecord = Space.createClass({
-});
+Space.Class('Space.ActiveRecord', {});
 
-Space.ActiveRecord.IllegalModelException = Space.createClass({extend: Space.Exception});
+Space.Class('Space.ActiveRecord.IllegalModelException', {extend: Space.Exception});
 
 Space.ActiveRecord.find = function(id) {
   if (!this.self) {
@@ -19,7 +17,7 @@ Space.ActiveRecord.find = function(id) {
       var conf = self.prototype.dataProvider;
       self.dataProvider = new Space.DataProvider[conf[0]](conf[1]);
     } else {
-      
+
     }
   }
 

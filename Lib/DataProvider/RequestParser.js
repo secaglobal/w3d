@@ -1,6 +1,8 @@
-Space.ns('Space.DataProvider');
-
-Space.DataProvider.RequestParser = Space.createClass({
+/**
+ * @class
+ * @name Space.DataProvider.RequestParser
+ */
+Space.Class('Space.DataProvider.RequestParser', /**  * @lends Space.DataProvider.RequestParser */{
   construct: function(args) {
     var len = args.length;
     var ids = [];
@@ -54,6 +56,9 @@ Space.DataProvider.RequestParser = Space.createClass({
     }
   },
 
+  /**
+   * @memberOf Space.DataProvider.RequestParser
+   */
   getParams: function() {
     return this._filterParams;
   },

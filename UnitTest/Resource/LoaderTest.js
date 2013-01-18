@@ -30,7 +30,7 @@ Space.require('Space.Resource.DefaultLoader');
       var path = 'Space.UnitTest.Fake.DefaultResourceLoaderFile';
       var fn = function() {};
       var loader = new Space.Resource.Loader();
-      var handler = new (Space.createClass({
+      var handler = new (Space.Class({
         extend: Space.Resource.DefaultLoader,
         loaded: 0,
         load: function() {
@@ -39,9 +39,9 @@ Space.require('Space.Resource.DefaultLoader');
           ok(arguments[1], fn, 'Callback must be received to custom loader');
         }
       }));
-      
+
       loader.setLoader(handler).load(path, fn);
-      
+
       equal(handler.loaded, 1, 'Custom loader must be executed just once');
     }
   }));

@@ -1,9 +1,7 @@
-Space.ns('Space.DataProvider');
-
 /**
- * @class
+ * @class Space.DataProvider.Proxy
  */
-Space.DataProvider.Proxy = Space.createClass({
+Space.Class('Space.DataProvider.Proxy', {
   /**
    * Constructor
    * @constructor
@@ -25,7 +23,7 @@ Space.DataProvider.Proxy = Space.createClass({
         fn = typeof lastParam == 'function' ? lastParam : false;
 
     if (filter.where) {
-      if (filter.where.id && typeof !(filter.where.id instanceof Array)) {
+      if (filter.where.id && !(filter.where.id instanceof Array)) {
         single = true;
       } else if (filter.limit && filter.limit == 1) {
         single = true;
@@ -36,19 +34,20 @@ Space.DataProvider.Proxy = Space.createClass({
     this._request.setParam('filter', filter);
 
     this._request.setSuccessCallback(
-      Space.Util.callback(this.findRequstHandler,scope, [single, fn]));
+      Space.Util.callback(this._findRequstHandler,scope, [single, fn]));
 
     this._request.send();
   },
 
-  findRequstHandler: function(single, fn, res) {
-    console.log(res);
+  _findRequstHandler: function(single, fn, res) {
     if (res.status) {
       for (var i = 0, record; record = res.response[i]; ++i) {
         this._records[record.id] = record;
       }
-    }
 
-    fn(single ? (res.response.length ? res.response[0] : false) : res.response);
+      fn(single ? (res.response.length == 1 ? res.response[0] : false) : res.response);
+    } else {
+      fn(res.response);
+    }
   }
 });

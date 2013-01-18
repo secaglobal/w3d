@@ -16,8 +16,9 @@ Space.require('Space.Util');
         [['one','two three'], '0=one&1=two%20three'],
         [
           {a: 1, b: [5, 6, 7], c: {a: 1, c: [3, 3, 3]}},
-          'a=1&b[]=5&b[]=6&b[]=7&c[a]=1&c[c][]=3&c[c][]=3&c[c][]=3'
+          'a=1&b[0]=5&b[1]=6&b[2]=7&c[a]=1&c[c][0]=3&c[c][1]=3&c[c][2]=3'
         ],
+        [{a: [1, 2, [3, 4], [5, 6]]},'a[0]=1&a[1]=2&a[2][0]=3&a[2][1]=4&a[3][0]=5&a[3][1]=6']
       ];
     },
 
@@ -52,7 +53,7 @@ Space.require('Space.Util');
       ok(typeof cl == 'function', 'Space.Util.callback:  must return function');
       equal(res, 4, 'Space.Util.callback: must set scope');
       deepEqual(args, expected, 'Space.Util.callback: must correctly place parameters');
-    },
+    }
 
   }));
 })();

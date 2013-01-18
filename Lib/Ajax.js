@@ -1,4 +1,3 @@
-
 Space.ns('Space.Ajax');
 
 Space.Ajax._requestFactory = null;
@@ -13,7 +12,7 @@ Space.Ajax.getRequestFactory = function() {
       };
     }
   }
-  
+
   return Space.Ajax._requestFactory
 }
 

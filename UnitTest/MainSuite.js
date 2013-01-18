@@ -1,5 +1,6 @@
 TestSuite([
     'CoreTest',
+    'ClassTest',
     'AjaxTest',
     'Ajax.RequestTest',
     'UtilTest',
@@ -10,4 +11,6 @@ TestSuite([
     'DataProvider.LocalTest',
     'DataProvider.ProxyTest',
     'DataProvider.RequestParserTest',
+    'ListenerTest',
+    'EnumTest'
 ]);

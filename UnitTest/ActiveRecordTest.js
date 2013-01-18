@@ -3,11 +3,11 @@ Space.require('Space.ActiveRecord');
 (function () {
   test('Test Active Record', TestCase({
     setUp: function() {
-      this.model = Space.createClass({
+      this.model = Space.Class({
         extend: Space.ActiveRecord,
         table: 'Person',
         validators: [
-          ['length', {max: 10, min: 3}, 'name']  
+          ['length', {max: 10, min: 3}, 'name']
           ['numeric', 'age', 'childs']
         ],
         dataProvider:['Local', {

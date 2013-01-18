@@ -1,6 +1,4 @@
-Space.ns('Space.Resource');
-
-Space.Resource.DefaultLoader = Space.createClass({
+Space.Class('Space.Resource.DefaultLoader', {
   construct: function() {
     this._sequance = [
       [/^Space\.UnitTest/, 'UnitTest'],

@@ -1,7 +1,6 @@
-Space.ns('Space.Resource');
 Space.require('Space.Resource.DefaultLoader');
 
-Space.Resource.Loader = Space.createClass({
+Space.Class('Space.Resource.Loader', {
   _loader: null,
   _defaultLoader: null,
   construct: function(loader) {
